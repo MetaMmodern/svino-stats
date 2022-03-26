@@ -20,12 +20,12 @@ jobs:
         with:
           node-version: "16"
       - uses: pnpm/action-setup@v2.1.0
-          with:
-            version: 6.0.2
-            run_install: true
-        - name: Build 
-          run: |
-            pnpm run build
+        with:
+          version: 6.0.2
+          run_install: true
+      - name: Build
+        run: |
+          pnpm run build
       - name: deploy site to vercel
         uses: amondnet/vercel-action@v20
         with:
@@ -33,5 +33,4 @@ jobs:
           vercel-args: "--prod" #Optional
           vercel-org-id: ${{ secrets.orgId}} #Required
           vercel-project-id: ${{ secrets.projectId}} #Required
-          scope: ${{ secrets.orgId }} 
-
+          scope: ${{ secrets.orgId }}
