@@ -17,8 +17,9 @@
   flex: 1;
   padding: 2rem 0;
   border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
+  justify-content: end;
+  align-items: end;
+  font-style: italic;
 }
 
 .footer a {
@@ -41,8 +42,6 @@
 
 .title {
   margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
 }
 
 .title,

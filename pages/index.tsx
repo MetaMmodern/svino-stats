@@ -1,4 +1,7 @@
 import type { NextPage } from "next";
+import Image from "next/image";
+import uaFlag from "../images/ua.webp";
+
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { parse } from "node-html-parser";
@@ -101,7 +104,20 @@ const Home: NextPage<{ allLosses: Array<dayLosses> }> = (props) => {
           })}
         </div>
       </main>
-      <footer>хехе</footer>
+      <footer className={styles.footer}>
+        <div>
+          Все буде Україна{" "}
+          <Image
+            src={uaFlag}
+            alt="UA"
+            // width={500} automatically provided
+            // height={500} automatically provided
+            // blurDataURL="data:..." automatically provided
+            // placeholder="blur" // Optional blur-up while loading
+            draggable={false}
+          />
+        </div>
+      </footer>
     </div>
   );
 };
