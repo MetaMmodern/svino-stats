@@ -67,10 +67,6 @@ const Home: NextPage<{ allLosses: Array<dayLosses> }> = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  context.res.setHeader(
-    "Cache-Control",
-    `public, s-maxage=${ONE_DAY_MS / 2}, stale-while-revalidate=59`
-  );
   const res = await fetch(
     "https://index.minfin.com.ua/ua/russian-invading/casualties/"
   );
