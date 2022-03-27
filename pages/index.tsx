@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
@@ -9,6 +9,7 @@ import {
   lossesTypes,
   maxAmountsInGeneral,
   maxAmountsNearBorders,
+  ONE_DAY_MS,
 } from "../utils/constants";
 import {
   datesFillerForAllDays,
@@ -65,7 +66,11 @@ const Home: NextPage<{ allLosses: Array<dayLosses> }> = (props) => {
   );
 };
 
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  context.res.setHeader(
+    "Cache-Control",
+    `public, s-maxage=${ONE_DAY_MS / 2}, stale-while-revalidate=59`
+  );
   const res = await fetch(
     "https://index.minfin.com.ua/ua/russian-invading/casualties/"
   );
@@ -90,6 +95,6 @@ export async function getStaticProps() {
       allLosses: normalizedLosses,
     },
   };
-}
+};
 
 export default Home;
