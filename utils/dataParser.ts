@@ -75,6 +75,7 @@ export const datesFillerForAllDays = (incomingLosses: transformedLosses) => {
   const localTransformedLosses: transformedLosses = JSON.parse(
     JSON.stringify(incomingLosses)
   );
+
   for (const key in lossesTypes) {
     if (
       Object.prototype.hasOwnProperty.call(lossesTypes, key) &&
