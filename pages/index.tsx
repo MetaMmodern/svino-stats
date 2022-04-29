@@ -67,25 +67,21 @@ const Home: NextPage<{ allLosses: Array<dayLosses> }> = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(
-    "https://index.minfin.com.ua/ua/russian-invading/casualties/"
-  );
-  const text = await res.text();
-  const validText = htmlNormalizer(text);
-  const htmlDoc = parse(validText, {
-    comment: false,
-    blockTextElements: {
-      script: false,
-      noscript: false,
-      style: false,
-      pre: false,
-    },
+  const res = await fetch("https://fict.bar/rysni-pryzda?l=uk");
+  const losses: { losses: Record<string, Record<string, number>> } =
+    await res.json();
+  const keys = Object.keys(losses.losses);
+  const nl: dayLosses[] = keys.map((k, i) => {
+    const keys = Object.keys(losses.losses[k]);
+    const lossesInside = keys.map((kInner) => {
+      return {
+        lossName: kInner as unknown as lossesTypes,
+        lossAmount: losses.losses[k][kInner],
+      };
+    });
+    return { losses: lossesInside, day: k };
   });
-  const daysElements = htmlDoc.querySelectorAll("li.gold");
-
-  const allLosses: Array<dayLosses> = elementsToObject(daysElements);
-
-  const normalizedLosses = normalizeLosses(allLosses);
+  const normalizedLosses = normalizeLosses(nl);
   return {
     props: {
       allLosses: normalizedLosses,
